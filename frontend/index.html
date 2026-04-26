@@ -68,6 +68,22 @@
   </style>
 </head>
 <body>
+  <!-- Global Error Handler for Debugging -->
+  <script>
+    window.addEventListener('error', function(e) {
+      var err = document.createElement('div');
+      err.style.cssText = 'position:fixed;top:0;left:0;width:100%;background:red;color:white;z-index:99999;padding:20px;font-family:monospace;white-space:pre-wrap;';
+      err.textContent = 'JS Error: ' + e.message + ' at ' + e.filename + ':' + e.lineno;
+      document.body.appendChild(err);
+    });
+    window.addEventListener('unhandledrejection', function(e) {
+      var err = document.createElement('div');
+      err.style.cssText = 'position:fixed;top:60px;left:0;width:100%;background:darkred;color:white;z-index:99999;padding:20px;font-family:monospace;white-space:pre-wrap;';
+      err.textContent = 'Promise Error: ' + (e.reason && e.reason.stack ? e.reason.stack : e.reason);
+      document.body.appendChild(err);
+    });
+  </script>
+
   <!-- App Mount Point -->
   <div id="app">
     <div id="app-loading">
