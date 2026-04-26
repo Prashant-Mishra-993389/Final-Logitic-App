@@ -128,8 +128,20 @@ export const Auth = {
 
     if (token) {
       // Verify token is still valid + refresh user data
-      const res = await this.getMe();
-      return res.success;
+      // Add a timeout so a slow server (e.g. cold start) doesn't freeze the loading screen
+      try {
+        const timeout = new Promise((resolve) => setTimeout(() => resolve({ success: false, timedOut: true }), 8000));
+        const res = await Promise.race([this.getMe(), timeout]);
+        if (res.timedOut) {
+          console.warn('[Auth] /auth/me timed out — starting app with cached session.');
+          // Return true if we have a cached user so the router can redirect to dashboard
+          return !!(cached && cached.role);
+        }
+        return res.success;
+      } catch (e) {
+        console.warn('[Auth] init error:', e);
+        return !!(cached && cached.role);
+      }
     }
 
     return false;

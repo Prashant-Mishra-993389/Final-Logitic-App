@@ -68,20 +68,15 @@
   </style>
 </head>
 <body>
-  <!-- Global Error Handler for Debugging -->
+  <!-- Hard failsafe: if JS hangs for any reason, clear the loading screen after 15s -->
   <script>
-    window.addEventListener('error', function(e) {
-      var err = document.createElement('div');
-      err.style.cssText = 'position:fixed;top:0;left:0;width:100%;background:red;color:white;z-index:99999;padding:20px;font-family:monospace;white-space:pre-wrap;';
-      err.textContent = 'JS Error: ' + e.message + ' at ' + e.filename + ':' + e.lineno;
-      document.body.appendChild(err);
-    });
-    window.addEventListener('unhandledrejection', function(e) {
-      var err = document.createElement('div');
-      err.style.cssText = 'position:fixed;top:60px;left:0;width:100%;background:darkred;color:white;z-index:99999;padding:20px;font-family:monospace;white-space:pre-wrap;';
-      err.textContent = 'Promise Error: ' + (e.reason && e.reason.stack ? e.reason.stack : e.reason);
-      document.body.appendChild(err);
-    });
+    setTimeout(function() {
+      var loading = document.getElementById('app-loading');
+      if (loading && loading.parentNode) {
+        loading.parentNode.removeChild(loading);
+        document.getElementById('app').innerHTML = '<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;flex-direction:column;gap:1rem;font-family:sans-serif;color:#94a3b8;"><div style="font-size:2rem;">⚠️</div><div style="font-size:1rem;font-weight:600;color:#f1f5f9;">Something took too long to load.</div><div style="font-size:0.875rem;">Please <a href="javascript:location.reload()" style="color:#38bdf8;">refresh the page</a> to try again.</div></div>';
+      }
+    }, 15000);
   </script>
 
   <!-- App Mount Point -->
