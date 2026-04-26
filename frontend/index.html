@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OneKeep — Industrial Service Marketplace</title>
+  <meta name="description" content="OneKeep is the definitive platform connecting top-tier industrial facilities with verified, highly-skilled professionals." />
+  <meta name="keywords" content="industrial services, marketplace, HVAC, electrical, automation, facility management" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' http: https: ws: wss: data: blob: 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com; img-src 'self' data: blob: https://*.openstreetmap.org https://unpkg.com https://images.unsplash.com;">
+  <meta name="theme-color" content="#090d14" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="./assets/oneKeep Logo.png" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Base styles -->
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #090d14;
+      color: #f8fafc;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    #app { min-height: 100vh; }
+    #app-loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      flex-direction: column;
+      gap: 1.5rem;
+      background: #090d14;
+    }
+    .init-logo-wrap {
+      display: flex; align-items: center; gap: 14px;
+    }
+    .init-logo-img {
+      width: 52px; height: 52px; border-radius: 14px;
+      animation: logoPulse 2s ease-in-out infinite;
+    }
+    .init-logo-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2rem; font-weight: 800;
+      background: linear-gradient(135deg, #2dd4bf 0%, #38bdf8 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+    .init-spinner {
+      width: 44px; height: 44px;
+      border: 2px solid rgba(56,189,248,0.15);
+      border-top-color: #38bdf8;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    .init-sub { color: #475569; font-size: 0.875rem; letter-spacing: 0.5px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes logoPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(56,189,248,0); }
+      50% { box-shadow: 0 0 20px 6px rgba(56,189,248,0.2); }
+    }
+  </style>
+</head>
+<body>
+  <!-- App Mount Point -->
+  <div id="app">
+    <div id="app-loading">
+      <div class="init-logo-wrap">
+        <img src="./assets/oneKeep Logo.png" class="init-logo-img" alt="OneKeep" />
+        <div class="init-logo-text">OneKeep</div>
+      </div>
+      <div class="init-spinner"></div>
+      <div class="init-sub">Loading platform...</div>
+    </div>
+  </div>
+
+  <!-- Toast Container (outside app for z-index) -->
+  <div id="toast-container" style="position:fixed;top:1.25rem;right:1.25rem;z-index:99999;display:flex;flex-direction:column;gap:0.5rem;pointer-events:none;"></div>
+
+  <!-- Modal Root -->
+  <div id="modal-root" style="position:fixed;inset:0;z-index:9999;pointer-events:none;"></div>
+
+  <!-- External Libraries -->
+  <!-- Socket.IO Client -->
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+  <!-- Razorpay -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <!-- Chart.js for admin analytics -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+
+  <!-- App Entry Point (ES Module) -->
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>
