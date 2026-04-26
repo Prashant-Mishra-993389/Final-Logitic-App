@@ -1,13 +1,13 @@
 // js/core/config.js — Environment configuration
 
 export const CONFIG = {
-  API_BASE: 'http://localhost:5000/api',
-  BASE_URL:  'http://localhost:5000',
+  API_BASE: `${window.location.origin}/api`,
+  BASE_URL:  window.location.origin,
   APP_NAME:  'IndustrialServ',
   VERSION:   '1.0.0',
 
   // Socket
-  SOCKET_URL: 'http://localhost:5000',
+  SOCKET_URL: window.location.origin,
 
   // Pagination
   PAGE_SIZE: 10,
